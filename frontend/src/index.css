@@ -1,0 +1,43 @@
+:root {
+  --bg: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --primary: #2563eb;
+  --primary-600: #1d4ed8;
+  --card: #f8fafc;
+  --border: #e5e7eb;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  color: var(--text);
+  background: var(--bg);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+.app { min-height: 100vh; display: flex; flex-direction: column; }
+.header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 20px; border-bottom: 1px solid var(--border); background: #fff; position: sticky; top: 0; z-index: 10;
+}
+.brand { font-weight: 700; cursor: pointer; }
+.header nav { display: flex; gap: 12px; }
+.header a { color: var(--primary); text-decoration: none; font-weight: 600; }
+.container { padding: 20px; max-width: 960px; margin: 0 auto; width: 100%; }
+
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+.card.light { background: #fff; }
+.form { display: grid; gap: 10px; max-width: 520px; }
+input, select, textarea { padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; }
+button { background: var(--primary); color: white; border: none; border-radius: 8px; padding: 10px 14px; cursor: pointer; font-weight: 600; }
+button:hover { background: var(--primary-600); }
+.muted { color: var(--muted); font-size: 12px; }
+.error { color: #b91c1c; margin-top: 8px; }
+.success { color: #065f46; margin-top: 8px; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+.avatar { width: 100%; height: 140px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); background: #fff; }
+.btn { display: inline-block; margin-top: 10px; background: var(--primary); color: #fff; padding: 8px 10px; border-radius: 8px; text-decoration: none; }
+.list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.list-item { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 12px; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
