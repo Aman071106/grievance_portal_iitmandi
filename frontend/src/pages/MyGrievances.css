@@ -1,0 +1,137 @@
+.my-grievances-container {
+  padding-top: 100px; /* Space for fixed header */
+  padding-bottom: 50px;
+  background: linear-gradient(135deg, #0d1117, #161b22); /* Dark, subtle gradient */
+  min-height: 100vh;
+  color: #c9d1d9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page-title {
+  font-size: 3rem;
+  color: #58a6ff; /* A vibrant blue for the title */
+  margin-bottom: 2.5rem;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+  animation: slideInDown 1s ease-out;
+}
+
+.grievances-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  width: 90%;
+  max-width: 1200px;
+  padding: 0 20px;
+}
+
+.grievance-card {
+  background-color: rgba(255, 255, 255, 0.08); /* Slightly visible card background */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.grievance-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.card-header h3 {
+  font-size: 1.6rem;
+  color: #79c0ff; /* Lighter blue for card titles */
+  margin: 0;
+}
+
+.status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+}
+
+.status.pending {
+  background-color: #f7b100; /* Yellow for pending */
+  color: #333;
+}
+
+.status.resolved {
+  background-color: #28a745; /* Green for resolved */
+  color: white;
+}
+
+.status.in-progress {
+  background-color: #007bff; /* Blue for in progress */
+  color: white;
+}
+
+.card-date {
+  font-size: 0.9rem;
+  color: #8b949e;
+  margin-bottom: 10px;
+}
+
+.card-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: #c9d1d9;
+}
+
+.view-details-button {
+  background-color: #58a6ff; /* Button color matching link */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  align-self: flex-start; /* Align button to start of card */
+}
+
+.view-details-button:hover {
+  background-color: #79c0ff;
+}
+
+/* Animations */
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 2.5rem;
+  }
+
+  .grievances-list {
+    grid-template-columns: 1fr;
+    width: 95%;
+  }
+
+  .grievance-card {
+    padding: 20px;
+  }
+}

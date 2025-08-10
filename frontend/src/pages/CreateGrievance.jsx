@@ -1,49 +1,81 @@
-import { useEffect, useState } from 'react'
-import api from '../services/api.js'
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import './CreateGrievance.css';
 
-export default function CreateGrievance() {
-  const [authorities, setAuthorities] = useState([])
-  const [authorityKey, setAuthorityKey] = useState('')
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
-  const [error, setError] = useState('')
-  const [message, setMessage] = useState('')
+const steps = [
+  "Personal Information",
+  "Grievance Details",
+  "Supporting Documents",
+  "Review and Submit"
+];
 
-  useEffect(() => {
-    api.get('/authorities').then(res => {
-      setAuthorities(res.data.items)
-      if (res.data.items?.length) setAuthorityKey(res.data.items[0].key)
-    })
-  }, [])
+const CreateGrievance = () => {
+  const [currentStep, setCurrentStep] = useState(0);
 
-  const onSubmit = async (e) => {
-    e.preventDefault()
-    setError(''); setMessage('')
-    if (!confirm('Are you sure you want to post this grievance?')) return
-    try {
-      await api.post('/grievances', { authorityKey, title, description })
-      setMessage('Grievance posted!')
-      setTitle(''); setDescription('')
-    } catch (err) {
-      setError(err.response?.data?.message || 'Failed to post')
+  const handleNext = () => {
+    if (currentStep < steps.length - 1) {
+      setCurrentStep(currentStep + 1);
     }
-  }
+  };
+
+  const handlePrev = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
 
   return (
-    <div className="card">
-      <h2>Post a Grievance</h2>
-      <form onSubmit={onSubmit} className="form">
-        <select value={authorityKey} onChange={e=>setAuthorityKey(e.target.value)}>
-          {authorities.map(a => (<option key={a.key} value={a.key}>{a.name}</option>))}
-        </select>
-        <input placeholder="Title" value={title} onChange={e=>setTitle(e.target.value)} required />
-        <textarea placeholder="Describe your grievance..." value={description} onChange={e=>setDescription(e.target.value)} required />
-        <button type="submit">Post</button>
-      </form>
-      {error && <div className="error">{error}</div>}
-      {message && <div className="success">{message}</div>}
+    <div className="create-grievance-container">
+      <div className="form-wrapper">
+        <div className="form-header">
+          <h2>{steps[currentStep]}</h2>
+        </div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentStep}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -50 }}
+            transition={{ duration: 0.5 }}
+            className="form-step"
+          >
+            {currentStep === 0 && (
+              <div>
+                <label>Full Name</label>
+                <input type="text" placeholder="Enter your full name" />
+                <label>Email Address</label>
+                <input type="email" placeholder="Enter your email" />
+              </div>
+            )}
+            {currentStep === 1 && (
+              <div>
+                <label>Grievance Title</label>
+                <input type="text" placeholder="A brief title for your grievance" />
+                <label>Grievance Description</label>
+                <textarea rows="5" placeholder="Describe your grievance in detail"></textarea>
+              </div>
+            )}
+            {currentStep === 2 && (
+              <div>
+                <label>Upload Documents</label>
+                <input type="file" multiple />
+              </div>
+            )}
+            {currentStep === 3 && (
+              <div>
+                <h3>Review your submission</h3>
+              </div>
+            )}
+          </motion.div>
+        </AnimatePresence>
+        <div className="form-footer">
+          {currentStep > 0 && <button onClick={handlePrev}>Previous</button>}
+          {currentStep < steps.length - 1 && <button onClick={handleNext}>Next</button>}
+          {currentStep === steps.length - 1 && <button>Submit</button>}
+        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-
+export default CreateGrievance;

@@ -1,0 +1,143 @@
+.authorities-container {
+  padding-top: 100px; /* Space for fixed header */
+  padding-bottom: 50px;
+  background: linear-gradient(135deg, #161b22, #0d1117); /* Dark, subtle gradient */
+  min-height: 100vh;
+  color: #c9d1d9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page-title {
+  font-size: 3rem;
+  color: #a7f3d0; /* Light green for contrast */
+  margin-bottom: 3rem;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+  animation: fadeInDown 1s ease-out;
+}
+
+.authorities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  width: 90%;
+  max-width: 1200px;
+  padding: 0 20px;
+}
+
+.authority-card {
+  background-color: rgba(255, 255, 255, 0.08); /* Slightly visible card background */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.authority-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(88, 166, 255, 0.1), rgba(167, 243, 208, 0.1));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+.authority-card:hover::before {
+  opacity: 1;
+}
+
+.authority-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid #58a6ff; /* Blue border for image */
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
+  z-index: 1;
+  /* Added for centering fallback image */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.authority-image[src*="image_not_found.svg"] {
+  object-fit: contain;
+  object-position: center;
+  padding: 10px; /* Add some padding around the SVG */
+}
+
+.authority-card:hover .authority-image {
+  transform: scale(1.08);
+}
+
+.authority-name {
+  font-size: 1.8rem;
+  color: #79c0ff; /* Lighter blue for names */
+  margin-bottom: 8px;
+  z-index: 1;
+}
+
+.authority-role {
+  font-size: 1.1rem;
+  color: #8b949e;
+  margin-bottom: 20px;
+  z-index: 1;
+}
+
+.contact-button {
+  background-color: #58a6ff; /* Button color matching link */
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  z-index: 1;
+}
+
+.contact-button:hover {
+  background-color: #79c0ff;
+  transform: translateY(-3px);
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 2.5rem;
+  }
+
+  .authorities-grid {
+    grid-template-columns: 1fr;
+    width: 95%;
+  }
+
+  .authority-card {
+    padding: 20px;
+  }
+}

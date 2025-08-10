@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
+import Hero from './components/Hero.jsx'
 import SignIn from './pages/SignIn.jsx'
 import SignUp from './pages/SignUp.jsx'
 import Authorities from './pages/Authorities.jsx'
@@ -16,11 +17,12 @@ const router = createBrowserRouter([
     path: '/',
     element: <App />,
     children: [
-      { index: true, element: <SignIn /> },
+      { index: true, element: <Hero /> },
+      { path: 'signin', element: <SignIn /> },
       { path: 'signup', element: <SignUp /> },
       { path: 'authorities', element: <Authorities /> },
-      { path: 'create', element: <CreateGrievance /> },
-      { path: 'my', element: <MyGrievances /> },
+      { path: 'create-grievance', element: <CreateGrievance /> },
+      { path: 'my-grievances', element: <MyGrievances /> },
       { path: 'inbox/:key', element: <Inbox /> },
       { path: 'change-password', element: <ChangePassword /> },
     ],

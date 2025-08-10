@@ -1,36 +1,65 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import api from '../services/api.js'
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import './SignIn.css';
 
-export default function SignIn() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  const navigate = useNavigate()
+const SignIn = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const onSubmit = async (e) => {
-    e.preventDefault()
-    setError('')
-    try {
-      await api.post('/auth/signin', { email, password })
-      navigate('/authorities')
-    } catch (err) {
-      setError(err.response?.data?.message || 'Sign in failed')
-    }
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Sign In submitted:', { email, password });
+    // Add your authentication logic here
+  };
 
   return (
-    <div className="card light">
-      <h2>Sign In</h2>
-      <form onSubmit={onSubmit} className="form">
-        <input type="email" placeholder="IIT Mandi Email" value={email} onChange={e=>setEmail(e.target.value)} required />
-        <input type="password" placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)} required />
-        <button type="submit">Sign In</button>
-      </form>
-      {error && <div className="error">{error}</div>}
-      <div className="muted">New here? <Link to="/signup">Create an account</Link></div>
+    <div className="signin-container">
+      <motion.div
+        className="signin-card"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <h2 className="signin-title">Welcome Back!</h2>
+        <form onSubmit={handleSubmit} className="signin-form">
+          <div className="input-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="your@example.com"
+              required
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
+              required
+            />
+          </div>
+          <motion.button
+            type="submit"
+            className="signin-button"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Sign In
+          </motion.button>
+        </form>
+        <p className="signup-link">
+          Don't have an account? <Link to="/signup">Sign Up</Link>
+        </p>
+      </motion.div>
     </div>
-  )
-}
+  );
+};
 
-
+export default SignIn;
